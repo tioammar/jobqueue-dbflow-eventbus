@@ -18,11 +18,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <provider
-            android:authorities="in.lovelacetech.pln"
-            android:name="in.lovelacetech.pln.provider.Provider"
-            android:exported="false"
-            android:syncable="true"/>
     </application>
 </manifest>

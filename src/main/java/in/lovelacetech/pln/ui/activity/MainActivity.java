@@ -1,10 +1,6 @@
 package in.lovelacetech.pln.ui.activity;
 
-import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,22 +9,23 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.path.android.jobqueue.JobManager;
+import com.raizlabs.android.dbflow.list.FlowCursorList;
 
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
 import in.lovelacetech.pln.R;
-import in.lovelacetech.pln.event.PostEvent;
+import in.lovelacetech.pln.event.ExampleEvent;
 import in.lovelacetech.pln.job.BaseJob;
 import in.lovelacetech.pln.job.TestJob;
-import in.lovelacetech.pln.provider.Contract;
+import in.lovelacetech.pln.model.ExampleModel;
 import in.lovelacetech.pln.ui.ExampleAdapter;
 import in.lovelacetech.pln.vo.Example;
 
-public class MainActivity extends BaseActivity
-        implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends BaseActivity {
 
     ExampleAdapter mExampleAdapter;
+    FlowCursorList<Example> mCursorList;
 
     @Inject
     JobManager mJobManager;
@@ -66,9 +63,9 @@ public class MainActivity extends BaseActivity
                 Toast.makeText(MainActivity.this, title, Toast.LENGTH_SHORT).show();
             }
         });
+        mCursorList = new ExampleModel().query();
         rv.setAdapter(mExampleAdapter);
-
-        getSupportLoaderManager().initLoader(0, null, this);
+        mExampleAdapter.swapCursor(mCursorList);
     }
 
     @Override
@@ -78,23 +75,7 @@ public class MainActivity extends BaseActivity
     }
 
     @SuppressWarnings("unused")
-    public void onEventMainThread(PostEvent event){
-        getSupportLoaderManager().restartLoader(0, null, this);
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this, Contract.ExampleColumn.CONTENT_URI, Example.PROJECTION,
-                null, null, null);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mExampleAdapter.swapCursor(data);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        mExampleAdapter.swapCursor(null);
+    public void onEventMainThread(ExampleEvent event){
+        mExampleAdapter.refresh();
     }
 }

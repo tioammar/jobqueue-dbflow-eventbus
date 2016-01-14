@@ -2,6 +2,8 @@ package in.lovelacetech.pln;
 
 import android.app.Application;
 
+import com.raizlabs.android.dbflow.config.FlowManager;
+
 import in.lovelacetech.pln.di.component.AppComponent;
 import in.lovelacetech.pln.di.AppModule;
 import in.lovelacetech.pln.di.component.DaggerAppComponent;
@@ -16,6 +18,7 @@ public class TestApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        FlowManager.init(this);
 
         mAppComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))

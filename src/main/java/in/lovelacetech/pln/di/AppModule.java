@@ -12,6 +12,7 @@ import dagger.Provides;
 import de.greenrobot.event.EventBus;
 import in.lovelacetech.pln.TestApplication;
 import in.lovelacetech.pln.job.BaseJob;
+import in.lovelacetech.pln.model.ExampleModel;
 
 /**
  * Created by Aditya Amirullah on 1/13/2016.
@@ -48,5 +49,11 @@ public class AppModule {
     @Singleton
     public EventBus eventBus() {
         return new EventBus();
+    }
+
+    @Provides
+    @Singleton
+    public ExampleModel exampleModel() {
+        return new ExampleModel();
     }
 }

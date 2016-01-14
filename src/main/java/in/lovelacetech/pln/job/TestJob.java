@@ -8,6 +8,9 @@ import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
 import in.lovelacetech.pln.di.component.AppComponent;
+import in.lovelacetech.pln.event.ExampleEvent;
+import in.lovelacetech.pln.model.ExampleModel;
+import in.lovelacetech.pln.vo.Example;
 
 /**
  * Created by Aditya Amirullah on 1/13/2016.
@@ -15,6 +18,9 @@ import in.lovelacetech.pln.di.component.AppComponent;
 public class TestJob extends BaseJob {
 
     private static final String TAG = TestJob.class.getSimpleName();
+
+    @Inject
+    ExampleModel mExampleModel;
 
     @Inject
     EventBus mEventBus;
@@ -37,6 +43,10 @@ public class TestJob extends BaseJob {
     @Override
     public void onRun() throws Throwable {
         Log.d(TAG, "job running...");
+        Example model = new Example();
+        model.text = "hoeeeee";
+        mExampleModel.insert(model);
+        mEventBus.post(new ExampleEvent());
     }
 
     @Override

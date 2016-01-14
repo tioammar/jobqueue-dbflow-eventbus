@@ -1,22 +1,25 @@
 package in.lovelacetech.pln.vo;
 
-import java.io.Serializable;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
-import in.lovelacetech.pln.provider.Contract;
+import in.lovelacetech.pln.model.AppData;
 
 /**
  * Created by tioammar on 13/01/16.
  */
-public class Example implements Serializable {
 
+@Table(database = AppData.class, name = Example.TABLE_NAME)
+public class Example extends BaseModel{
+
+    public static final String TABLE_NAME = "example";
+
+    @Column
+    @PrimaryKey(autoincrement = true)
     public int id;
+
+    @Column
     public String text;
-
-    public final static String[] PROJECTION = {
-            Contract.ExampleColumn._ID,
-            Contract.ExampleColumn.COLUMN_TEXT
-    };
-
-    public static final int _ID = 0;
-    public static final int TEXT = 1;
 }

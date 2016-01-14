@@ -1,12 +1,13 @@
 package in.lovelacetech.pln.ui;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.raizlabs.android.dbflow.list.FlowCursorList;
 
 import in.lovelacetech.pln.R;
 import in.lovelacetech.pln.vo.Example;
@@ -21,7 +22,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.SampleVi
     }
 
     private Listener mListener;
-    private Cursor mCursor;
+    private FlowCursorList<Example> mCursor;
     private Context mContext;
 
     public ExampleAdapter(Context context, Listener listener) {
@@ -41,9 +42,9 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.SampleVi
 
     @Override
     public void onBindViewHolder(SampleViewHolder holder, int position) {
-        if (mCursor.moveToPosition(position)) {
-            holder.mTitle.setText(mCursor.getString(Example.TEXT));
-        }
+        Example example = mCursor.getItem(position);
+        String text = "ID: " + example.id;
+        holder.mTitle.setText(text);
     }
 
     @Override
@@ -64,12 +65,19 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.SampleVi
 
         @Override
         public void onClick(View v) {
-            // nothing to do
+            int id = getAdapterPosition();
+            Example example = mCursor.getItem(id);
+            mListener.onClickListener(example.text);
         }
     }
 
-    public void swapCursor(Cursor cursor) {
-        mCursor = cursor;
+    public void swapCursor(FlowCursorList<Example> examples) {
+        mCursor = examples;
+        notifyDataSetChanged();
+    }
+
+    public void refresh(){
+        mCursor.refresh();
         notifyDataSetChanged();
     }
 }
