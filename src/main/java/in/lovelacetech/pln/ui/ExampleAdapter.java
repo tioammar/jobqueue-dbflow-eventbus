@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import in.lovelacetech.pln.R;
-import in.lovelacetech.pln.provider.Contract;
 import in.lovelacetech.pln.vo.Example;
 
 /**
@@ -65,10 +64,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.SampleVi
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
-            mCursor.moveToPosition(position);
-            int columnId = mCursor.getColumnIndex(Contract.ExampleColumn.COLUMN_TEXT);
-            mListener.onClickListener(mCursor.getString(columnId));
+            // nothing to do
         }
     }
 
