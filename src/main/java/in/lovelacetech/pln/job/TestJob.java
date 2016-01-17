@@ -23,7 +23,7 @@ public class TestJob extends BaseJob {
     ExampleModel mExampleModel;
 
     @Inject
-    EventBus mEventBus;
+    EventBus mBus;
 
     @Override
     public void inject(AppComponent component) {
@@ -43,10 +43,14 @@ public class TestJob extends BaseJob {
     @Override
     public void onRun() throws Throwable {
         Log.d(TAG, "job running...");
+
         Example model = new Example();
+
         model.text = "hoeeeee";
         mExampleModel.insert(model);
-        mEventBus.post(new ExampleEvent());
+
+        // poke the activity
+        mBus.post(new ExampleEvent());
     }
 
     @Override

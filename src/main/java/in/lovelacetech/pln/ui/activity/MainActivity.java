@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity {
     JobManager mJobManager;
 
     @Inject
-    EventBus mEventBus;
+    EventBus mBus;
 
     @Override
     protected String setTitle() {
@@ -44,7 +44,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         getComponent().inject(this);
 
-        mEventBus.register(this);
+        mBus.register(this);
 
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +76,7 @@ public class MainActivity extends BaseActivity {
 
     @SuppressWarnings("unused")
     public void onEventMainThread(ExampleEvent event){
-        mExampleAdapter.refresh();
+        mCursorList.refresh();
+        mExampleAdapter.swapCursor(mCursorList);
     }
 }

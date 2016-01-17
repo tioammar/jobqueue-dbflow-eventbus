@@ -75,9 +75,4 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.SampleVi
         mCursor = examples;
         notifyDataSetChanged();
     }
-
-    public void refresh(){
-        mCursor.refresh();
-        notifyDataSetChanged();
-    }
 }

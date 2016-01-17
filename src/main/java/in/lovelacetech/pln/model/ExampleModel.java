@@ -21,8 +21,11 @@ public class ExampleModel implements CoreModel<Example> {
 
     @Override
     public FlowCursorList<Example> query() {
-        return new FlowCursorList<>(true, SQLite.select()
-                .from(Example.class).orderBy(Example_Table.id, false));
+        FlowCursorList<Example> examples = new FlowCursorList<>(false, SQLite.select()
+                    .from(Example.class).orderBy(Example_Table.id, false));
+        if (examples.getCount() >= 0) {
+            return examples;
+        } else return null;
     }
 
     public void bulkInsert(List<Example> examples){
