@@ -50,6 +50,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.SampleVi
 
     public void swapCursor(FlowCursorList<Example> examples){
         mCursor = examples;
+        notifyDataSetChanged();
     }
 
     public void refreshList(){

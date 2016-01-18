@@ -20,8 +20,8 @@ import in.lovelacetech.pln.R;
 import in.lovelacetech.pln.event.ExampleEvent;
 import in.lovelacetech.pln.job.BaseJob;
 import in.lovelacetech.pln.job.TestJob;
+import in.lovelacetech.pln.model.ExampleModel;
 import in.lovelacetech.pln.ui.ExampleAdapter;
-import in.lovelacetech.pln.ui.loader.ExampleLoader;
 import in.lovelacetech.pln.vo.Example;
 
 public class MainActivity extends BaseActivity
@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public Loader<FlowCursorList<Example>> onCreateLoader(int id, Bundle args) {
-        return new ExampleLoader(this);
+        return new ExampleModel.ExampleListLoader(this);
     }
 
     @Override

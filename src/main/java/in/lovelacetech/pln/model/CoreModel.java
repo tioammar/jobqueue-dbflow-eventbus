@@ -14,5 +14,6 @@ public interface CoreModel<T extends BaseModel> {
     void bulkInsert(List<T> t);
     void delete(T t);
     void update(T t);
-    FlowCursorList<T> query();
+    FlowCursorList<T> getAll();
+    T get(int id);
 }
