@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.path.android.jobqueue.JobManager;
-import com.raizlabs.android.dbflow.list.FlowCursorList;
 
 import javax.inject.Inject;
 
@@ -18,14 +17,11 @@ import in.lovelacetech.pln.R;
 import in.lovelacetech.pln.event.ExampleEvent;
 import in.lovelacetech.pln.job.BaseJob;
 import in.lovelacetech.pln.job.TestJob;
-import in.lovelacetech.pln.model.ExampleModel;
 import in.lovelacetech.pln.ui.ExampleAdapter;
-import in.lovelacetech.pln.vo.Example;
 
 public class MainActivity extends BaseActivity {
 
     ExampleAdapter mExampleAdapter;
-    FlowCursorList<Example> mCursorList;
 
     @Inject
     JobManager mJobManager;
@@ -63,9 +59,7 @@ public class MainActivity extends BaseActivity {
                 Toast.makeText(MainActivity.this, title, Toast.LENGTH_SHORT).show();
             }
         });
-        mCursorList = new ExampleModel().query();
         rv.setAdapter(mExampleAdapter);
-        mExampleAdapter.swapCursor(mCursorList);
     }
 
     @Override
@@ -76,7 +70,6 @@ public class MainActivity extends BaseActivity {
 
     @SuppressWarnings("unused")
     public void onEventMainThread(ExampleEvent event){
-        mCursorList.refresh();
-        mExampleAdapter.swapCursor(mCursorList);
+        mExampleAdapter.refreshList();
     }
 }

@@ -12,7 +12,7 @@ import in.lovelacetech.pln.model.AppData;
  */
 
 @Table(database = AppData.class, name = Example.TABLE_NAME)
-public class Example extends BaseModel{
+public class Example extends BaseModel {
 
     public static final String TABLE_NAME = "example";
 

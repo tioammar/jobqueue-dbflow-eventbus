@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.raizlabs.android.dbflow.list.FlowCursorList;
 
 import in.lovelacetech.pln.R;
+import in.lovelacetech.pln.model.ExampleModel;
 import in.lovelacetech.pln.vo.Example;
 
 /**
@@ -28,6 +29,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.SampleVi
     public ExampleAdapter(Context context, Listener listener) {
         mContext = context;
         mListener = listener;
+        mCursor = new ExampleModel().query();
     }
 
     @Override
@@ -45,6 +47,12 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.SampleVi
         Example example = mCursor.getItem(position);
         String text = "ID: " + example.id;
         holder.mTitle.setText(text);
+
+    }
+
+    public void refreshList(){
+        mCursor.refresh();
+        notifyDataSetChanged();
     }
 
     @Override
@@ -69,10 +77,5 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.SampleVi
             Example example = mCursor.getItem(id);
             mListener.onClickListener(example.text);
         }
-    }
-
-    public void swapCursor(FlowCursorList<Example> examples) {
-        mCursor = examples;
-        notifyDataSetChanged();
     }
 }
