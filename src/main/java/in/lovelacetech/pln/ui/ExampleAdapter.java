@@ -29,7 +29,6 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.SampleVi
     public ExampleAdapter(Context context, Listener listener) {
         mContext = context;
         mListener = listener;
-        mCursor = new ExampleModel().query();
     }
 
     @Override
@@ -47,7 +46,10 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.SampleVi
         Example example = mCursor.getItem(position);
         String text = "ID: " + example.id;
         holder.mTitle.setText(text);
+    }
 
+    public void swapCursor(FlowCursorList<Example> examples){
+        mCursor = examples;
     }
 
     public void refreshList(){

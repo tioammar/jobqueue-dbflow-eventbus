@@ -17,7 +17,6 @@ abstract public class BaseActivity extends AppCompatActivity {
 
     private ActivityComponent mComponent;
 
-
     abstract boolean setUseToolbar();
     abstract protected String setTitle();
 
